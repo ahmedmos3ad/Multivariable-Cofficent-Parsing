@@ -19,7 +19,6 @@ for x in range(int(MatrixSize)):
     aflag=0
     bflag=0
     cflag=0
-    equalflag=0
 
     EquationLines.append(f.readline())
     #print(EquationLines[x])
