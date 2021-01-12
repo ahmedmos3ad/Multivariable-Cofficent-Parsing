@@ -6,7 +6,7 @@ from sympy.abc import a, b, c
 x,y,z = sp.symbols('x y z')
 a,b,c = sp.symbols('a b c')
 
-CofficentList=[]
+coefficientList=[]
 EquationLines=[]
 InitialPointList=[]
 
@@ -27,7 +27,7 @@ for x in range(int(MatrixSize)):
         k= i.coeffs()
         if (len(k)<4):
             k.append(0)
-        CofficentList.append(k)
+        coefficientList.append(k)
     else:
         if ("a" in EquationLines[x])==0:
             aflag=1
@@ -46,12 +46,12 @@ for x in range(int(MatrixSize)):
                 Temp.insert(2,0)
             if (len(Temp)<4):
                 Temp.append(0)
-        CofficentList.append(Temp)
+        coefficientList.append(Temp)
 InitialPointList=f.readline()
 f.close()
 print(int(MatrixSize))
 print(Method)
-for j in CofficentList:    
+for j in coefficientList:    
     print(j)
 print (InitialPointList)
 
