@@ -14,44 +14,59 @@ InitialPointList=[]
 f=open("Equations.txt","r")
 MatrixSize=f.readline()
 Method=f.readline()
+
+alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+
 for x in range(int(MatrixSize)):
     
-    aflag=0
-    bflag=0
-    cflag=0
+    flags=[]
+    for i in range(26):
+        flags.append(0)
 
     EquationLines.append(f.readline())
     #print(EquationLines[x])
-    if ("a" in EquationLines[x]) & ("b" in EquationLines[x]) & ("c" in EquationLines[x]):
-        i= poly(EquationLines[x])
-        k= i.coeffs()
-        if (len(k)<4):
-            k.append(0)
-        coefficientList.append(k)
-    else:
-        if ("a" in EquationLines[x])==0:
-            aflag=1
-        if ("b" in EquationLines[x])==0:
-            bflag=1
-        if ("c" in EquationLines[x])==0:
-            cflag=1
-        i=poly(EquationLines[x])
-        Temp=i.coeffs()
-        if (Temp.count(x)<4):
-            if aflag:
-                Temp.insert(0,0)
-            if bflag:
-                Temp.insert(1,0)
-            if cflag:
-                Temp.insert(2,0)
-            if (len(Temp)<4):
-                Temp.append(0)
-        coefficientList.append(Temp)
+
+    for k in range(26):
+        if (alphabet[k] in EquationLines[x])==0:
+            flags[k]=1
+
+    i=poly(EquationLines[x])
+    Temp=i.coeffs()
+        
+    for j in range(26):
+        if flags[j]:
+            Temp.insert(j,0)
+    if (len(Temp)<(26)):
+        Temp.append(0)
+    coefficientList.append(Temp)
 InitialPointList=f.readline()
 f.close()
+
+indicestopop=[]
+for u in range(27):
+    zeroflags=[]
+    for x in range(int(MatrixSize)):
+        zeroflags.append(0)
+    for y in range(int(MatrixSize)):
+        if coefficientList[y][u]==0:
+            zeroflags[y]=1
+        else: break
+    zeroflags.insert(0,1)
+    if all(elem == zeroflags[0] for elem in zeroflags):
+        indicestopop.append(u)
+
+
+newCoefficentList=[[] for i in range(int(MatrixSize))]
+
+for i in range(int(MatrixSize)):
+    for x in range(27):
+        if (x in indicestopop)==0:
+            newCoefficentList[i].append(coefficientList[i][x])
+
+           
 print(int(MatrixSize))
 print(Method)
-for j in coefficientList:    
+for j in newCoefficentList:    
     print(j)
 print (InitialPointList)
 
